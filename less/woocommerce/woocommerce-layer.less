@@ -1,0 +1,40 @@
+// Copyright (C) YOOtheme GmbH, YOOtheme Proprietary Use License (http://www.yootheme.com/license) */
+
+// Variables
+// ========================================================================
+
+//
+// Badge
+//
+
+@badge-color:                                   @global-contrast-color;
+@badge-danger-background:                       @global-success-background;
+
+//
+// Form
+//
+
+@form-height:                                   35px;
+
+
+// Additional style fixes
+// ========================================================================
+
+/* Button and link color overrides */
+
+.woocommerce,
+.woocommerce-page {
+
+    /* Reseting the line-height */
+
+    form {
+
+        .form-row {
+
+            input.input-text,
+            textarea { line-height: @form-height; }
+
+        }
+    }
+
+}
