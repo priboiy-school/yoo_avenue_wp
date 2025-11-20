@@ -42,10 +42,6 @@
 				"sidebar-a": {
 					"width": "18",
 					"alignment": "right"
-				},
-				"sidebar-b": {
-					"width": "18",
-					"alignment": "left"
 				}
 			},
 			"grid": {
@@ -67,13 +63,17 @@
 				},
 				"bottom-c": {
 					"layout": "parallel",
-					"responsive": ""
+					"responsive": "medium"
 				},
 				"main-top": {
 					"layout": "parallel",
 					"responsive": "medium"
 				},
 				"main-bottom": {
+					"layout": "parallel",
+					"responsive": "medium"
+				},
+				"footer": {
 					"layout": "parallel",
 					"responsive": "medium"
 				}
@@ -125,15 +125,41 @@
 			}
 		},
 		"block-3": {
+			"title": "1",
 			"assignment": {
 				"0": "",
 				"1": "*"
+			},
+			"class": "",
+			"panel": "",
+			"icon": "",
+			"badge": {
+				"type": "uk-panel-badge uk-badge",
+				"text": ""
+			},
+			"display": {
+				"large": "1",
+				"medium": "1",
+				"small": "1"
 			}
 		},
 		"custom_html-4": {
+			"title": "1",
 			"assignment": {
 				"0": "",
 				"1": "*"
+			},
+			"class": "",
+			"panel": "",
+			"icon": "",
+			"badge": {
+				"type": "uk-panel-badge uk-badge",
+				"text": ""
+			},
+			"display": {
+				"large": "1",
+				"medium": "1",
+				"small": "1"
 			}
 		}
 	},
