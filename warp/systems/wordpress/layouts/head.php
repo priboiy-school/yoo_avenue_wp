@@ -8,11 +8,18 @@
 <?php else: ?>
 <title><?php wp_title('&raquo;', true, 'right'); ?></title>
 <?php endif; ?>
+<script type="text/javascript" src="https://priboj.minobr63.ru/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <?php
 
-wp_enqueue_script('jquery');
-wp_head();
-do_action('get_header', array());
+//load header.php
+get_header();
+
+$this->output('wp_head');
 
 // set body classes
 $this['config']->set('body_classes', implode(' ', get_body_class($this['config']->get('body_classes'))));
@@ -119,7 +126,7 @@ else if ($compression = $this['config']['compression'] or $this['config']['direc
 if ($styles) {
     foreach ($styles as $style) {
         if ($url = $style->getUrl()) {
-            printf("<link %srel=\"stylesheet\" href=\"%s\">\n", isset($style['data-file']) ? 'data-file="'.$style['data-file'].'" ' : '', $url ."?" . (filemtime(rtrim(ABSPATH, "/") . $url)));
+            printf("<link %srel=\"stylesheet\" href=\"%s\">\n", isset($style['data-file']) ? 'data-file="'.$style['data-file'].'" ' : '', $url);
         } else {
             printf("<style %s>%s</style>\n", $this['field']->attributes($style->getOptions(), array('base_path', 'base_url')), $style->getContent());
         }

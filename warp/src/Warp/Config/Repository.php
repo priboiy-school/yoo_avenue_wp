@@ -94,7 +94,7 @@ class Repository implements \ArrayAccess
      * Determine if the given configuration value exists.
      *
      * @param string $key
-     * 
+     *
      * @return bool
      */
     public function has($key)
@@ -109,17 +109,17 @@ class Repository implements \ArrayAccess
      *
      * @param string $key
      * @param mixed  $default
-     * 
+     *
      * @return mixed
      */
     public function get($key, $default = null)
     {
         $this->doLoad();
-        
+
         $array = $this->values;
 
         if (isset($array[$key])) {
-            return $array[$key];            
+            return $array[$key];
         }
 
         foreach (explode('.', $key) as $segment) {
@@ -165,7 +165,7 @@ class Repository implements \ArrayAccess
      * Determine if the given configuration option exists.
      *
      * @param string $key
-     * 
+     *
      * @return bool
      */
     public function offsetExists($key)
@@ -177,7 +177,7 @@ class Repository implements \ArrayAccess
      * Get a configuration option.
      *
      * @param string $key
-     * 
+     *
      * @return bool
      */
     public function offsetGet($key)
@@ -240,7 +240,7 @@ class Repository implements \ArrayAccess
     {
         foreach ($new as $name => $value) {
 
-            if ($important = $name[0] == '!') {
+            if ( is_string($name) && ( $important = $name[0] == '!' ) ) {
                 $name = ltrim($name, '!');
             }
 
@@ -249,7 +249,7 @@ class Repository implements \ArrayAccess
             } elseif (is_string($name)) {
                 $current[$name] = $this->doReplacements($value);
             } else {
-                $current[] = $this->doReplacements($value);               
+                $current[] = $this->doReplacements($value);
             }
         }
 

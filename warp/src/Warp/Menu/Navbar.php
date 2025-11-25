@@ -54,11 +54,11 @@ class Navbar
                     }
 
                     if ($li->children('ul')->length == $column) {
-                        $li->append('<ul class="level2"></ul>');
+                        $li->warp_append('<ul class="level2"></ul>');
                     }
 
                     if ($column > 0) {
-                       $li->children('ul')->item($column)->append($child);
+                       $li->children('ul')->item($column)->warp_append($child);
                     }
                 }
 
@@ -73,19 +73,28 @@ class Navbar
             $style = $width > 0 ? sprintf(' style="min-width: %spx; max-width: %spx; width:%spx;"', $columns * $width, $columns * $width, $width) : null;
 
             // append dropdown divs
-            $li->append(sprintf('<div class="uk-dropdown uk-dropdown-navbar uk-dropdown-width-%d"%s><div class="uk-grid uk-dropdown-grid"></div></div>', $columns, $style));
+            $li->warp_append(sprintf('<div class="uk-dropdown uk-dropdown-navbar uk-dropdown-width-%d"%s><div class="uk-grid uk-dropdown-grid"></div></div>', $columns, $style));
             $div = $li->first('div.uk-dropdown div.uk-grid');
 
             foreach ($li->children('ul') as $i => $u) {
                 $u->addClass("uk-nav uk-nav-navbar");
-                $div->append(sprintf('<div class="uk-width-1-%d"></div>', $columns))->children('div')->item($i)->append($u);
+                $div->warp_append(sprintf('<div class="uk-width-1-%d"></div>', $columns))->children('div')->item($i)->warp_append($u);
             }
         }
+
+        // dropdown settings
+        $dropdown = str_replace('"', '\'', json_encode(array_merge(
+            array("preventflip" => "y"),
+            isset($module->nav_settings['dropdown']) ? (array)$module->nav_settings['dropdown'] : array()
+        )));
+
 
         foreach ($element->find('li.level1') as $li) {
             // add attributes, if element has dropdown
             if ($li->children('div.uk-dropdown')->length) {
-                $li->attr("data-uk-dropdown", "{}");
+
+                $li->attr("data-uk-dropdown", $dropdown);
+
                 $li->attr("aria-haspopup", "true");
                 $li->attr("aria-expanded", "false");
             }

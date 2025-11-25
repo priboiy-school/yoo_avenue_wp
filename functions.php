@@ -56,7 +56,7 @@ function gallery_function( $output, $atts ) {
 			foreach($arrs as $idstr):
 				$id = (int)$idstr;
 				if($src = wp_get_attachment_url($id)):
-					$medium = wp_get_attachment_image_src($id, "medium");
+					$medium = wp_get_attachment_image_src($id, "large");
 					$out .= '
 		<figure class="wp-block-image size-large">
 			<a href="' . $src . '" target="_blank" data-fancybox="gallery-' . $post->ID . '">
@@ -72,7 +72,9 @@ function gallery_function( $output, $atts ) {
 	return $out;
 }
 // Update CSS within admin area
+/*
 function zi_admin_styles() {
   wp_enqueue_style('admin-styles', get_template_directory_uri().'/hide-php-update-message.css', array(), '1.0', 'all');
 }
 add_action('admin_enqueue_scripts', 'zi_admin_styles');
+*/

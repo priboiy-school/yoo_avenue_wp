@@ -73,16 +73,16 @@ class Subnav
 
                 // set image
                 if ($image = $li->attr('data-menu-image')) {
-                    $child->prepend('<img class="uk-responsive-height" src="'.$image.'" alt="'.$child->text().'" /> ');
+                    $child->warp_prepend('<img class="uk-responsive-height" src="'.$image.'" alt="'.$child->text().'" /> ');
                 }
 
                 // set icon
                 if ($icon = $li->attr('data-menu-icon')) {
-                    $child->prepend('<i class="'.$icon.'"></i> ');
+                    $child->warp_prepend('<i class="'.$icon.'"></i> ');
                 }
 
                 if ($subtitle = $li->attr('data-menu-subtitle')) {
-                    $child->append('<div>'.$subtitle.'</div>');
+                    $child->warp_append('<div>'.$subtitle.'</div>');
                 }
             }
 

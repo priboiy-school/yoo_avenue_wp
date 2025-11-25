@@ -105,7 +105,7 @@ class Element extends \DOMElement
         return $this;
     }
 
-    public function before($data)
+    public function warp_before($data)
     {
         $data = $this->prepareInsert($data);
         $this->parentNode->insertBefore($data, $this);
@@ -113,7 +113,7 @@ class Element extends \DOMElement
         return $this;
     }
 
-    public function after($data)
+    public function warp_after($data)
     {
         $data = $this->prepareInsert($data);
 
@@ -126,7 +126,7 @@ class Element extends \DOMElement
         return $this;
     }
 
-    public function prepend($data)
+    public function warp_prepend($data)
     {
         $data = $this->prepareInsert($data);
 
@@ -141,7 +141,7 @@ class Element extends \DOMElement
         return $this;
     }
 
-    public function append($data)
+    public function warp_append($data)
     {
         $data = $this->prepareInsert($data);
 
@@ -152,7 +152,7 @@ class Element extends \DOMElement
         return $this;
     }
 
-    public function replaceWith($data)
+    public function warp_replaceWith($data)
     {
         $data = $this->prepareInsert($data);
 

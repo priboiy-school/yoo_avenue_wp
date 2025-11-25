@@ -3,6 +3,10 @@
 
     <article class="uk-article">
 
+        <?php if ($this['config']->get('page_title', true)) : ?>
+        <h1 class="uk-article-title"><?php the_title(); ?></h1>
+        <?php endif; ?>
+
         <?php if (has_post_thumbnail()) : ?>
             <?php
             $width = get_option('thumbnail_size_w'); //get the width of the thumbnail setting
@@ -11,13 +15,9 @@
             <?php the_post_thumbnail(array($width, $height), array('class' => '')); ?>
         <?php endif; ?>
 
-        <?php if ($this['config']->get('page_title', true)) : ?>
-        <h1 class="uk-article-title"><?php the_title(); ?></h1>
-        <?php endif; ?>
-
         <?php the_content(''); ?>
 
-        <?php //edit_post_link(__('Edit this post.', 'warp'), '<p><i class="uk-icon-pencil"></i> ','</p>'); ?>
+        <?php edit_post_link(__('Edit this post.', 'warp'), '<p><i class="uk-icon-pencil"></i> ','</p>'); ?>
 
     </article>
 
