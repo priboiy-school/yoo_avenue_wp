@@ -121,7 +121,6 @@ class Warp_Breadcrumbs extends \WP_Widget
 
     public function form($instance)
     {
-        $instance = wp_parse_args((array)$instance, array('title' => '', 'home_title' => 'Home'));
         $title = esc_attr($instance['title']);
         $home_title = esc_attr($instance['home_title']);
         ?>

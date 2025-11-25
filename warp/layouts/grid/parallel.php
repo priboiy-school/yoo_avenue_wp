@@ -6,7 +6,10 @@
 * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL
 */
 
-$count = count($widgets);
+if (($count = count($widgets)) < 1 || $count > 6) {
+    echo '<div class="uk-width-1-1">Error: Only up to 6 widgets are supported in this layout. If you need more add your own layout.</div>';
+    return;
+}
 
 $widths = array(
     array('1-1'),
@@ -22,12 +25,6 @@ foreach ($widgets as $index => $widget) {
     $prev = 0;
     foreach ($displays as $class => &$display) {
         if (false !== $pos = array_search($index, $display)) {
-
-            if ($count > 6) {
-                $classes[] = 'uk-flex-item-1 uk-width-small-1-1';
-                continue;
-            }
-
             $width = in_array($class, $stacked) ? '1-1' : $widths[count($display)-1][$pos];
             if ($width != $prev) {
                 $classes[] = "uk-width".($class != 'small' ? "-{$class}" : '')."-{$width}";

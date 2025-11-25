@@ -43,7 +43,6 @@ class Warp_Sidebar extends \WP_Widget
 
     public function form($instance)
     {
-        $instance = wp_parse_args((array)$instance, array('title' => ''));
         $title = esc_attr($instance['title']);
         ?>
         <p>

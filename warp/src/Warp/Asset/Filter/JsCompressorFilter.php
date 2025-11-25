@@ -36,9 +36,7 @@ class JsCompressorFilter implements FilterInterface
 
     public function filterContent($asset)
     {
-        if ($asset->getType() == 'File' && !preg_match('/\.min\.js$/i', $asset->getPath())) {
-            $asset->setContent($this->process($asset->getContent()));
-        }
+        $asset->setContent($this->process($asset->getContent()));
     }
 
     /**
@@ -62,7 +60,7 @@ class JsCompressorFilter implements FilterInterface
 
         try {
             $script = trim($this->min());
-        } catch (\Exception $e) {}
+        } catch (Exception $e) {}
 
         return $script;
     }
@@ -165,7 +163,7 @@ class JsCompressorFilter implements FilterInterface
                             break;
                         }
                         if (ord($this->a) <= self::ORD_LF) {
-                            throw new \Exception(
+                            throw new Exception(
                                 "JSMin: Unterminated String at byte "
                                 . $this->inputIndex . ": {$str}");
                         }
@@ -195,7 +193,7 @@ class JsCompressorFilter implements FilterInterface
                             $this->a       = $this->get();
                             $pattern      .= $this->a;
                         } elseif (ord($this->a) <= self::ORD_LF) {
-                            throw new \Exception(
+                            throw new Exception(
                                 "JSMin: Unterminated RegExp at byte "
                                 . $this->inputIndex .": {$pattern}");
                         }
@@ -328,7 +326,7 @@ class JsCompressorFilter implements FilterInterface
                     return ' ';
                 }
             } elseif ($get === null) {
-                throw new \Exception(
+                throw new Exception(
                     "JSMin: Unterminated comment at byte "
                     . $this->inputIndex . ": /*{$comment}");
             }

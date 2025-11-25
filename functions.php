@@ -72,9 +72,7 @@ function gallery_function( $output, $atts ) {
 	return $out;
 }
 // Update CSS within admin area
-/*
 function zi_admin_styles() {
   wp_enqueue_style('admin-styles', get_template_directory_uri().'/hide-php-update-message.css', array(), '1.0', 'all');
 }
 add_action('admin_enqueue_scripts', 'zi_admin_styles');
-*/

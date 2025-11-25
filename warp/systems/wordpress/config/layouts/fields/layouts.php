@@ -89,7 +89,7 @@ foreach (array_keys(get_taxonomies()) as $tax) {
             <?php foreach ($option as $value => $text) : ?>
                 <li>
                     <label>
-                        <input value="<?php echo $value ?>" name="<?php echo "{$name}[{$layout}][assignment][]" ?>" type="checkbox"<?php if (is_array($layouts[$layout]['assignment']) && in_array($value, $layouts[$layout]['assignment'])) echo ' checked="checked"' ?>> <?php echo $text ?>
+                        <input value="<?php echo $value ?>" name="<?php echo "{$name}[{$layout}][assignment][]" ?>" type="checkbox"<?php if (@in_array($value, $layouts[$layout]['assignment'])) echo ' checked="checked"' ?>> <?php echo $text ?>
                     </label>
                 <?php endforeach ?>
                 </ul>

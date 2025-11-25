@@ -40,7 +40,7 @@ class MenuWalker extends \Walker_Nav_Menu
             $data['data-menu-active'] = 2;
 
         // home/fronpage item
-        } elseif (preg_replace('/#(.+)$/', '', $item->url) == 'index.php' && (is_home() || is_front_page())) {
+        } elseif ($item->url == 'index.php' && (is_home() || is_front_page())) {
             $data['data-menu-active'] = 2;
         }
 
@@ -86,6 +86,9 @@ class MenuWalker extends \Walker_Nav_Menu
             }
         }
 
+        // escape link title
+        $item->title = htmlspecialchars($item->title, ENT_COMPAT, "UTF-8");
+
         $classes = trim(preg_replace('/menu-item(.+)/', '', implode(' ', $classes)));
 
         // is separator ?
@@ -100,7 +103,7 @@ class MenuWalker extends \Walker_Nav_Menu
             }
 
             $format     = '%s<a href="#" %s>%s</a>%s';
-            $classes   .= ' separator';
+            $classes   += ' seperator';
 
             $attributes = ' class="'.$classes.'" data-type="'.$type.'"';
         } else {

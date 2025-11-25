@@ -46,7 +46,7 @@ class CssRtlFilter implements FilterInterface
         'text-align' => 'rtltr',
         'float' => 'rtltr',
         'clear' => 'rtltr',
-        //'direction' => 'direction',
+        'direction' => 'direction',
         'border-radius' => 'quad_radius',
         'border-color' => 'quad',
         'border-width' => 'quad',

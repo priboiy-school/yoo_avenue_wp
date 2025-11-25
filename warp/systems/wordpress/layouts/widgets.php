@@ -25,9 +25,9 @@ foreach ($widgets as $index => $widget) {
     $params['suffix'] = $widget->suffix;
 
     // pass through menu params
-	if ($widget->menu) {
-		$widget->nav_settings = array('scrollspy' => false);
-	}
+    if (isset($menu)) {
+        $params['menu'] = $menu;
+    }
 
     // set position params
     $widget->position_params = $params;

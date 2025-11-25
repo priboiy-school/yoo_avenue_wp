@@ -8,7 +8,7 @@
         <p class="uk-article-meta">
             <?php
                 $date = '<time datetime="'.get_the_date('Y-m-d').'">'.get_the_date().'</time>';
-                printf(__('Published by %s on %s', 'warp'), '<a href="'.get_author_posts_url(get_the_author_meta('ID')).'" title="'.get_the_author().'">'.get_the_author().'</a>', $date);
+                //printf(__('Published by %s on %s', 'warp'), '<a href="'.get_author_posts_url(get_the_author_meta('ID')).'" title="'.get_the_author().'">'.get_the_author().'</a>', $date);
             ?>.
 
             <?php
@@ -29,7 +29,7 @@
 
         <p><a href="<?php echo wp_get_attachment_url(); ?>" title="<?php the_title_attribute(); ?>"><?php echo wp_get_attachment_image($post->ID, 'full-size'); ?></a></p>
 
-        <?php edit_post_link(__('Edit this attachment.', 'warp'), '<p><i class="uk-icon-pencil"></i> ','</p>'); ?>
+        <?php //edit_post_link(__('Edit this attachment.', 'warp'), '<p><i class="uk-icon-pencil"></i> ','</p>'); ?>
 
     </article>
 

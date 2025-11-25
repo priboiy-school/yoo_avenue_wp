@@ -5,12 +5,10 @@
 //
 // Sub-objects:     `uk-dropdown-overlay`
 //
-// Modifiers:       `uk-dropdown-blank`
-//                  `uk-dropdown-top`
-//                  `uk-dropdown-bottom`
-//                  `uk-dropdown-left`
-//                  `uk-dropdown-right`
+// Modifiers:       `uk-dropdown-flip`
+//                  `uk-dropdown-center`
 //                  `uk-dropdown-justify`
+//                  `uk-dropdown-up`
 //                  `uk-dropdown-grid`
 //                  `uk-dropdown-width-2`
 //                  `uk-dropdown-width-3`
@@ -64,39 +62,31 @@
  * 1. Hide by default
  * 2. Set position
  * 3. Box-sizing is needed for `uk-dropdown-justify`
- * 4. Set width
+ * 4. Set style
+ * 5. Reset button group whitespace hack
  */
 
-.uk-dropdown,
-.uk-dropdown-blank {
+.uk-dropdown {
     /* 1 */
     display: none;
     /* 2 */
     position: absolute;
+    top: 100%;
+    left: 0;
     z-index: @dropdown-z-index;
     /* 3 */
     box-sizing: border-box;
     /* 4 */
     width: @dropdown-width;
-}
-
-/*
- * Dropdown style
- * 1. Reset button group whitespace hack
- */
-
-.uk-dropdown {
+    margin-top: @dropdown-margin-top;
     padding: @dropdown-padding;
     background: @dropdown-background;
     color: @dropdown-color;
-    /* 1 */
+    /* 5 */
     font-size: @dropdown-font-size;
     vertical-align: top;
     .hook-dropdown;
 }
-
-/* Focus */
-.uk-dropdown:focus { outline: none; }
 
 /*
  * 1. Show dropdown
@@ -104,8 +94,7 @@
  * 3. Needed for scale animation
  */
 
-.uk-open > .uk-dropdown,
-.uk-open > .uk-dropdown-blank {
+.uk-open > .uk-dropdown {
     /* 1 */
     display: block;
     /* 2 */
@@ -120,13 +109,24 @@
  ========================================================================== */
 
 /*
- * Modifier
+ * Modifier `uk-dropdown-flip`
  */
 
-.uk-dropdown-top { margin-top: (-1 * @dropdown-margin-top); }
-.uk-dropdown-bottom { margin-top: @dropdown-margin-top; }
-.uk-dropdown-left { margin-left: (-1 * @dropdown-margin-top); }
-.uk-dropdown-right { margin-left: @dropdown-margin-top; }
+.uk-dropdown-flip {
+    left: auto;
+    right: 0;
+}
+
+/*
+ * Modifier `uk-dropdown-up`
+ */
+
+.uk-dropdown-up {
+    top: auto;
+    bottom: 100%;
+    margin-top: auto;
+    margin-bottom: @dropdown-margin-top;
+}
 
 
 /* Nav in dropdown

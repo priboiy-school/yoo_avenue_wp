@@ -8,14 +8,11 @@
 <?php else: ?>
 <title><?php wp_title('&raquo;', true, 'right'); ?></title>
 <?php endif; ?>
-<link rel="shortcut icon" href="<?php echo $this['path']->url('theme:favicon.ico');?>">
-<link rel="apple-touch-icon-precomposed" href="<?php echo $this['path']->url('theme:apple_touch_icon.png'); ?>">
 <?php
 
-//load header.php
-get_header();
-
-$this->output('wp_head');
+wp_enqueue_script('jquery');
+wp_head();
+do_action('get_header', array());
 
 // set body classes
 $this['config']->set('body_classes', implode(' ', get_body_class($this['config']->get('body_classes'))));
@@ -122,7 +119,7 @@ else if ($compression = $this['config']['compression'] or $this['config']['direc
 if ($styles) {
     foreach ($styles as $style) {
         if ($url = $style->getUrl()) {
-            printf("<link %srel=\"stylesheet\" href=\"%s\">\n", isset($style['data-file']) ? 'data-file="'.$style['data-file'].'" ' : '', $url);
+            printf("<link %srel=\"stylesheet\" href=\"%s\">\n", isset($style['data-file']) ? 'data-file="'.$style['data-file'].'" ' : '', $url ."?" . (filemtime(rtrim(ABSPATH, "/") . $url)));
         } else {
             printf("<style %s>%s</style>\n", $this['field']->attributes($style->getOptions(), array('base_path', 'base_url')), $style->getContent());
         }

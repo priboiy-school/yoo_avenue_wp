@@ -100,11 +100,7 @@
 
                         <?php else : ?>
 
-                            <?php
-                                $req = get_option('require_name_email');
-                                $commenter = wp_get_current_commenter();
-                                $consent = empty( $commenter['comment_author_email'] ) ? '' : ' checked="checked"';
-                            ?>
+                            <?php $req = get_option('require_name_email');?>
 
                             <div class="uk-form-row <?php if ($req) echo "required"; ?>">
                                 <input type="text" name="author" placeholder="<?php _e('Name', 'warp'); ?> <?php if ($req) echo "*"; ?>" value="<?php echo esc_attr($comment_author); ?>" <?php if ($req) echo "aria-required='true'"; ?>>
@@ -116,10 +112,6 @@
 
                             <div class="uk-form-row">
                                 <input type="text" name="url" placeholder="<?php _e('Website', 'warp'); ?>" value="<?php echo esc_attr($comment_author_url); ?>">
-                            </div>
-
-                            <div class="uk-form-row">
-                                <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" <?php echo $consent ?> /> <?php echo __( 'Save my name, email, and website in this browser for the next time I comment.' ) ?>
                             </div>
 
                         <?php endif; ?>

@@ -110,11 +110,8 @@ class SystemHelper extends AbstractHelper
 
         // set theme support
         add_theme_support('post-thumbnails');
-        add_theme_support('widgetkit');
         add_theme_support('woocommerce');
-        add_theme_support('wc-product-gallery-slider');
-        add_theme_support('wc-product-gallery-zoom');
-        add_theme_support('wc-product-gallery-lightbox');
+        add_theme_support('widgetkit');
 
         // set translations
         load_theme_textdomain('warp', $this['path']->path('theme:languages'));
@@ -221,18 +218,6 @@ class SystemHelper extends AbstractHelper
                 }, 20 );
             }
         }
-
-        // Set number of posts on frontpage
-        add_action( 'pre_get_posts', function($query) use ($warp) {
-
-            $posts_fp = $warp['config']->get('posts_on_frontpage');
-
-            if (is_home() && $posts_fp && $posts_fp !== 'default') {
-                $query->set( 'posts_per_page', $posts_fp );
-            }
-
-            return;
-        }, 1 );
     }
 
     /**
@@ -328,16 +313,18 @@ class SystemHelper extends AbstractHelper
                     $query[] = 'archive';
                 }
 
+                if (is_search()) {
+                    $query[] = 'search';
+                }
+
             } else {
                 if (is_single()) {
                     $query[] = $type.'-single';
+                } elseif (is_search()) {
+                    $query[] = $type.'-search';
                 } elseif (is_archive()) {
                     $query[] = $type.'-archive';
                 }
-            }
-
-            if (is_search()) {
-                $query[] = 'search';
             }
 
             if (is_page()) {
@@ -357,20 +344,22 @@ class SystemHelper extends AbstractHelper
                     $query[] = 'page-'.wc_get_page_id('shop');
                 }
 
-                if (is_product()) {
-                    foreach ($wc_cats = wc_get_product_cat_ids($obj->ID) as $cat) {
-                        $query[] = 'cat-'.$cat;
-                    }
-
-                    foreach ($wc_terms = wc_get_product_terms($obj->ID, 'product_tag') as $term) {
-                        $query[] = 'cat-'.$term->term_id;
-                    }
-                }
-
                 if (is_product_category() || is_product_tag()) {
                     $query[] = 'cat-'.$obj->term_id;
                 }
 
+            }
+
+            // WPML support
+            if (defined('ICL_LANGUAGE_CODE') && function_exists('icl_get_default_language') && ICL_LANGUAGE_CODE != ($lang = icl_get_default_language())) {
+
+                if ($type == 'page') {
+                    $query[] = 'page-'.icl_object_id($obj->ID, $type, true, $lang);
+                }
+
+                if ($type == 'category') {
+                    $query[] = 'cat-'.icl_object_id($obj->term_id, $type, true, $lang);
+                }
             }
 
             $this->query = $query;
@@ -391,28 +380,6 @@ class SystemHelper extends AbstractHelper
         global $wp_query;
 
         return $wp_query->post_count;
-    }
-
-    /**
-     * Get current page info
-     */
-    public function getPageInfo()
-    {
-        $result = array(
-            'tags' => array()
-        );
-
-        // get tag titles of pages
-        $tags = get_the_tags();
-
-        if (is_array($tags)) {
-            foreach ($tags as $tag) {
-                $result['tags'][] = $tag->name;
-            }
-        }
-
-
-        return $result;
     }
 
     /**
@@ -462,26 +429,10 @@ class SystemHelper extends AbstractHelper
 
             foreach ($wp_query->get_posts() as $post) {
 
-                $content = do_shortcode(!empty($post->post_excerpt) ? $post->post_excerpt : $post->post_content);
-                $content = apply_filters('warp_ajax_search', $content);
-                $content = strip_tags($content);
+                $content = !empty($post->post_excerpt) ? strip_tags(do_shortcode($post->post_excerpt)) : strip_tags(do_shortcode($post->post_content));
 
                 if (strlen($content) > 180) {
-
-                    if (function_exists('mb_strpos')) {
-                        if (($pos = mb_strpos($content, ' ', 180)) > 0) {
-                            $content = mb_substr($content, 0, $pos) . '...';
-                        } else {
-                            $content = mb_substr($content, 0, 179) . '...';
-                        }
-                    } else {
-                        if (($pos = strpos($content, ' ', 180)) > 0) {
-                            $content = substr($content, 0, $pos) . '...';
-                        } else {
-                            $content = substr($content, 0, 179) . '...';
-                        }
-                    }
-
+                    $content = substr($content, 0, 179).'...';
                 }
 
                 $result['results'][] = array(
@@ -731,9 +682,9 @@ class SystemHelper extends AbstractHelper
         $icon = $this['path']->url('config:images/yoo_icon_16.png');
         $self = $this;
 
-        add_menu_page('', $name, apply_filters('warp_edit_theme_options', 'edit_theme_options'), 'warp', function() use ($self) {
+        add_object_page('', $name, apply_filters('warp_edit_theme_options', 'edit_theme_options'), 'warp', function() use ($self) {
             echo $self['template']->render('config:layouts/theme_options', array('xml' => $self->xml));
-        }, $icon, '50');
+        }, $icon);
     }
 }
 
